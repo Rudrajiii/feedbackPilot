@@ -1,7 +1,7 @@
 import re
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import StrOutputParser , PydanticOutputParser
+from langchain_core.output_parsers import PydanticOutputParser
 from app.pipeline.schemas import SentimentResult
 from dotenv import load_dotenv
 
@@ -21,8 +21,7 @@ def preprocess_feedback(raw_input:dict) -> dict:
     clean_message = sanitized_message[:MAX_CHAR_LIMIT]
     return {"message":clean_message}
 
-model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
-parser = StrOutputParser()
+model = ChatGoogleGenerativeAI(model="gemini-3.5-flash" , temperature=0.6)
 structured_output = PydanticOutputParser(pydantic_object=SentimentResult)
 
 prompt = PromptTemplate(
@@ -39,5 +38,5 @@ prompt = PromptTemplate(
     partial_variables={"format_instruction":structured_output.get_format_instructions()}
 )
 
-classify_sentiment = prompt | model | parser
+classify_sentiment = prompt | model | structured_output
 

@@ -17,11 +17,16 @@ def test_preprocess_feedback_truncates_length():
 
 # it works but takes time due to api call
 
-# def test_get_sample_sentiment():
-#     message = """
-#         Dogshit product, petty developer. It should be free. Waste of money, and time.
-#     """
-#     result = classify_sentiment.invoke({"message":message})
-#     print(result)
+'''
+sample output from this test
+backend/tests/test_chains.py::test_get_sample_sentiment sentiment='positive' confidence=0.98 topics=['AI tool integration', 'information search', 'research accuracy'] urgency='low' summary='The user highly praises the combination of AI tools for making work-related research and information searching easier and more accurate.'
+'''
 
-#     assert len(result) > 0
+def test_get_sample_sentiment():
+    message = """
+        I love the combination of several AI tools. Makes searching for information much easier. I use this while doing research at work and I've found it to be very helpful and accurate.
+    """
+    result = classify_sentiment.invoke({"message":message})
+    print(result)
+
+    assert None

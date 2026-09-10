@@ -19,7 +19,7 @@ class SentimentResult(BaseModel):
     )
 
     summary: str = Field(
-        decimal_places="A one-sentence summary of the core issue or praise."
+        description="A one-sentence summary of the core issue or praise."
     )
 
 
