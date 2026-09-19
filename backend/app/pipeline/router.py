@@ -20,5 +20,8 @@ full_pipeline = (
         original_message=RunnablePassthrough(),
         sentiment_result=classify_sentiment
     )
-    | feedback_router
+    | RunnableParallel(
+        agent_output=feedback_router,
+        sentiment_result=lambda x: x["sentiment_result"]
+    )
 )
