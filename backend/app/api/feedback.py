@@ -55,7 +55,6 @@ def process_feedback_bg_task(feedback_id:int):
             session.add(feedback)
             session.commit()
 
-
 @router.post("/")
 def submit_feedback(
     request: FeedbackSubmitRequest,

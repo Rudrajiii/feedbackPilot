@@ -1,15 +1,15 @@
 from langchain_core.tools import tool
+from app.services.rating_service import get_rating_service
+from app.services.support_notifier import get_support_notifier
 
 @tool
 def request_rating_tool(customer_id: str , custom_msg:str) -> str:
     """Sends a friendly 5-star rating request to a happy customer."""
-    print(f"\n[LOYALTY ACTION] Requesting rating from {customer_id}...")
-    print(f"Message: {custom_msg}")
-    return "Rating request sent successfully."
+    service = get_rating_service()
+    return service.request_rating(customer_id , custom_msg)
 
 @tool
 def notify_support_tool(customer_id:str, complaint_summary:str , urgency: str) -> str:
     """Escalates negative feedback to the human support team."""
-    print(f"\n[ESCALATION ACTION] Alerting Support for {customer_id}...")
-    print(f"Urgency: [{urgency.upper()}] | Issue: {complaint_summary}")
-    return "Support team notified."
+    service = get_support_notifier()
+    return service.notify(customer_id, complaint_summary, urgency)
